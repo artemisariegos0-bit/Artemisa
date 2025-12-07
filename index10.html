@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artemisa Riegos - Sistemas de Riego Automático</title>
+
+  <link rel="icon" type="png" href="https://i.imgur.com/Hd5U9rU.png">
+
+<style>    /* VARIABLES DE MARCA para fácil edición */
+    :root {
+      --color-verde-oscuro: rgb(44, 95, 45);
+      --color-verde-extra-oscuro: #1b3c1a;
+      --color-amarillo-dorado: gold;
+      --color-texto-oscuro: #333;
+      --color-celeste-agua: #79bff8; /* Tono de celeste para enlaces/interactividad */
+      --color-fondo-claro: #f4f9f4;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      /* padding-top ajustado para que el contenido no quede debajo del nav fijo */
+      padding-top: 5em;
+      background-color: var(--color-fondo-claro);
+      color: var(--color-texto-oscuro);
+    }
+
+    /* --- ESTILOS DEL NAV SUPERIOR (ENCABEZADO) --- */
+    .encabezado {
+      position: fixed; /* Barra de navegación fija en la parte superior */
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--color-verde-oscuro);
+      padding: 0.5em 2em; /* Reducido para que el icono quepa mejor */
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+
+      /* Uso de Flexbox para alinear el icono a la izquierda y los enlaces a la derecha */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-home {
+      height: 28px; /* Tamaño del icono */
+      width: auto;
+      border-radius: 50%;
+      transition: opacity 0.3s;
+      /* Ajuste de margen para mejor estética en desktop */
+      margin-right: 3em;
+      /* Añadido un pequeño borde para que el icono destaque si tiene fondo claro */
+      border: 2px solid var(--color-amarillo-dorado);
+    }
+
+    .logo-home:hover {
+        opacity: 0.8;
+    }
+
+    .nav-links {
+        display: flex;
+        /* Espaciado ajustado para desktop */
+        gap: 2em;
+        /* Para asegurar que los enlaces se centren en el espacio restante si se desea, aunque space-between es mejor */
+        flex-grow: 1;
+        justify-content:center; /* Alinea los enlaces a la derecha */
+    }
+
+    .nav-links a {
+      color: gold;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.5em 0;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-celeste-agua); /* Celeste para el efecto hover (agua/cielo) */
+    }
+
+    /* --- ESTILOS DEL HEADER PRINCIPAL (FULL-SCREEN IMAGE) --- */
+    header {
+      /* Se mantiene la imagen de fondo full-screen */
+      background: url('https://i.imgur.com/dxxLUP6.jpeg') no-repeat center top/cover;
+      height: 100vh;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      /* Oscurecer la imagen de fondo para mejor legibilidad del texto */
+      background-blend-mode: multiply;
+      background-color: rgba(0, 0, 0, 0.30); /* opacidad para el fondo */
+    }
+
+    header h1 {
+      font-family: Georgia;
+      color: var(--color-amarillo-dorado); /* Dorado/Amarillo aludiendo a la divinidad y el sol */
+      /* Sombra mejorada */
+      text-shadow: 0 0 7px var(--color-verde-extra-oscuro), 0 0 15px var(--color-verde-extra-oscuro);
+      background-color: rgba(44, 95, 45, 0.6); /* Sutil fondo semitransparente verde */
+      font-size: 3em;
+      margin: 0.2em 0;
+      padding: 0.2em 0.5em;
+      display: inline-block;
+      border-radius: 5px;
+    }
+
+    header p {
+      color: white;
+      /* Sombra mejorada */
+      text-shadow: 0 0 3px #000, 0 0 5px #000;
+      background-color: rgba(255, 215, 0, 0.5); /* Fondo dorado semi-transparente para el subtítulo */
+      font-size: 1.5em;
+      margin-bottom: 1em;
+      padding: 0.2em 0.5em;
+      display: inline-block;
+      border-radius: 5px;
+    }
+    .divisor {
+      background: linear-gradient(
+        to bottom,
+        gold 0%,
+
+        green 100%
+      );
+      text-align: center;
+    }
+    .divisor img {
+
+      width: 48px;
+    }
+    /* --- ESTILOS DE SECCIONES GENERALES --- */
+    section {
+      padding: 3em 2em;
+    }
+
+    section h2 {
+        text-align: center;
+        color: var(--color-verde-oscuro);
+        margin-bottom: 1.5em;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+      justify-content: center;
+    }
+
+    .feature {
+      flex: 1 1 300px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 1.5em;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-top: 5px solid var(--color-amarillo-dorado); /* Detalle amarillo/dorado en las tarjetas */
+    }
+
+    .feature h3 {
+      color: var(--color-verde-oscuro);
+      border-bottom: 2px solid var(--color-fondo-claro);
+      padding-bottom: 0.5em;
+      margin-top: 0;
+    }
+
+    /* --- ESTILOS DE CONTACTO (Alineación y logos) --- */
+    #contacto p img {
+      width: 24px; /* Tamaño más adecuado para iconos en línea */
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .contact-info a {
+        color: var(--color-verde-oscuro);
+        text-decoration: underline;
+    }
+    /* FIN de estilo de la sección contactos */
+
+        /* --- SECCIÓN TRABAJOS (SLIDER) --- */
+    #trabajos {
+        background-color: #e8ede8;
+    }
+
+    .slider-container {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .slider-wrapper {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 500%; /* 5 imágenes * 100% */
+    }
+
+    .slider-item {
+      min-width: 20%; /* 100% / 5 imágenes */
+      height: auto;
+    }
+
+    .slider-item img {
+      width: 100%;
+      /* Altura fija para que todas las tarjetas se vean uniformes */
+      height: 400px;
+      display: block;      
+      /* Asegura que la imagen cubra todo el contenedor, recortando si es necesario, sin distorsionarse. */
+      object-fit: cover;
+    }
+
+    .slider-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 1.5em;
+      z-index: 5;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .slider-button:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .slider-prev { left: 10px; }
+    .slider-next { right: 10px; }
+
+
+    /* --- ESTILOS DEL FOOTER --- */
+    footer {
+      background-color: var(--color-verde-extra-oscuro);
+      color: white;
+      text-align: center;
+      padding: 2em 1em;
+    }
+
+    .socials a {
+      margin: 0 10px;
+      color: var(--color-celeste-agua);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .socials a:hover {
+        color: white;
+    }
+
+    /* --- RESPONSIVIDAD --- */
+    @media (max-width: 768px) {
+        .encabezado {
+            padding: 0.5em 1em;
+        }
+        .nav-links {
+            /* Espaciado más compacto en tabletas */
+            gap: 1.5em;
+        }
+        .logo-home {
+            height: 35px; /* Icono más pequeño en tabletas */
+        }
+    }
+
+    @media (max-width: 600px) {
+        header h1 {
+            font-size: 2em;
+        }
+        header p {
+            font-size: 1.2em;
+        }
+        /* Ocultar el logo en el nav bar si la pantalla es muy pequeña para maximizar espacio para los enlaces */
+        .logo-home {
+            display: none;
+        }
+        /* Ajustar el padding-top para cuando el nav es más pequeño */
+        body {
+            padding-top: 4em;
+        }
+
+        /* Ajuste para que los enlaces de navegación se espacien uniformemente cuando no hay logo */
+        .encabezado {
+            justify-content: center; /* Centra los enlaces si el logo está oculto */
+        }
+        .nav-links {
+            justify-content: space-around; /* Distribuye el espacio entre los 3 enlaces */
+            width: 100%;
+            gap: 0; /* Elimina el gap para usar space-around */
+        }
+        /* Ajuste de altura para que el slider ocupe menos en móvil */
+        .slider-item img {
+            height: 300px; /* Menos alto en el móvil */
+        }
+    }
+</style>
+
+</head>
+<body>
+   <nav class="encabezado">
+        <!-- ICONO DE LOGO/HOME -->
+        <a href="#">
+            <!-- un div con la clase logo-container para centrar el icono -->
+            <img src="https://i.imgur.com/Hd5U9rU.png" alt="Artemisa Riegos Logo - Home" class="logo-home">
+        </a>
+
+        <!-- ENLACES DE NAVEGACIÓN -->
+        <div class="nav-links">
+            <a href="#servicios">Servicios</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#trabajos">Trabajos</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+    </nav>
+
+  <header>
+
+    <h1>ARTEMISA RIEGOS</h1>
+    <p>Transformá tu espacio verde con la tecnología del riego automatizado</p>
+
+  </header>
+
+<main>
+
+  <!-- DIVISOR -->
+  <div class="divisor">
+    <img src="https://i.imgur.com/Hd5U9rU.png" alt="Logo">
+  </div>
+
+  <!-- SECCIONES -->
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <h2>Nuestros Servicios</h2>
+    <div class="features">
+      <div class="feature">
+        <h3>Diseño e Instalación</h3>
+        <p>Planificamos e instalamos sistemas de riego automatizado para jardines, parques, campos de fútbol, golf y más.</p>
+      </div>
+      <div class="feature">
+        <h3>Post-Venta y Mantenimiento</h3>
+        <p>Ofrecemos servicio técnico especializado, mantenimiento preventivo y soporte con garantía incluida.</p>
+      </div>
+      <div class="feature">
+        <h3>Soluciones Personalizadas</h3>
+        <p>Nos adaptamos a cada necesidad: hogares, countries, espacios públicos o deportivos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros">
+    <h2>¿Por qué elegir Artemisa?</h2>
+    <p>
+      Inspirados en la diosa Artemisa, protectora de la naturaleza, ofrecemos soluciones inteligentes para el cuidado de tus espacios verdes. Combinamos tecnología, eficiencia y estética para que tu entorno esté siempre en su mejor versión.
+    </p>
+  </section>
+
+    <!-- SECCIÓN: TRABAJOS (SLIDER) -->
+  <section id="trabajos">
+    <h2>Trabajos</h2>
+    <div class="slider-container">
+      <div class="slider-wrapper" id="sliderWrapper">
+        <div class="slider-item">
+             <img src="https://i.imgur.com/Abq0V09.jpeg" alt="Sistema de Riego con Aspersores giratorios (de impacto o turbina)">
+             <p style="text-align: center;">1. diseñado específicamente para maximizar la salud del paisaje y optimizar el consumo de agua</p>
+        </div>
+        <div class="slider-item">
+             <img src="https://i.imgur.com/bal0QGd.jpeg" alt="Sistema de Riego con Difusores Aspersores tipo spray (fijos)">
+             <p style="text-align: center;">2. aspersores de alta eficiencia o microaspersión/goteo</p>
+        </div>
+        <div class="slider-item">
+             <img src="https://i.imgur.com/1k8mkRT.jpeg" alt="Sistema de Riego con Aspersor móvil con manguera">
+             <p style="text-align: center;">3. Toda la infraestructura crítica se encuentra oculta bajo tierra, asegurando que la belleza y la uniformidad del césped o jardín sean el foco principal</p>
+        </div>
+        <div class="slider-item">
+             <img src="https://i.imgur.com/QDoOgiM.jpeg" alt="Sistema de Riego con Aspersores largo alcance">
+             <p style="text-align: center;">4. cobertura hídrica uniforme y precisa en toda el área.</p>
+        </div>
+        <div class="slider-item">            
+             <img src="https://i.imgur.com/AQBqOGz.jpeg" alt="Sistema de Riego con Aspersores intercalados">
+             <p style="text-align: center;">5. bajo mantenimiento y alta eficiencia que garantiza un ahorro de agua significativo y un paisaje siempre vibrante.</p>
+        </div>
+      </div>
+
+      <button class="slider-button slider-prev" onclick="moveSlider(-1)">&#10094;</button>
+      <button class="slider-button slider-next" onclick="moveSlider(1)">&#10095;</button>
+    </div>
+  </section>
+  <!-- FIN NUEVA SECCIÓN: TRABAJOS -->
+
+  <!-- CONTACTOS -->
+
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <div class="contact-info" style="text-align:center;">
+      
+      <!-- WHATSAPP -->
+      <p>
+        <img src="https://i.imgur.com/gU1U8z5.png" alt="whatsapp">
+
+        <a href="https://wa.me/541159036442" target="_blank">11 5903-6442</a>
+          /
+        <a href="https://wa.me/541161162283" target="_blank">11 6016-2283</a></p>
+      
+      <!-- FACEBOOK -->
+        <p>        
+         <img src="https://i.imgur.com/tbfzbPN.png" alt="facebook">
+        <a href="https://facebook.com/AremisaRiegos.ok" target="_blank">ArtemisaRiegos.ok</a></p>      
+      
+      <!-- INSTAGRAM -->
+      <p>
+        <!-- <img src="instagram-icon.png" alt="instagram"> -->
+         <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="instagram">
+        <a href="https://instagram.com/artemisariegos" target="_blank">@artemisariegos</a></p>
+    </div>
+  </section>
+
+
+</main>
+
+  <footer>
+    <p>&copy; 2025 Artemisa Riegos. Todos los derechos reservados.</p>
+    <div class="socials">
+      <a href="https://facebook.com/AremisaRiegos.ok" target="_blank">Facebook</a> |
+      <a href="https://instagram.com/artemisariegos" target="_blank">Instagram</a>
+    </div>
+  </footer>
+
+  <!-- JAVA SLIDER -->
+   <script>
+    // Variable para rastrear la imagen actual
+    let currentSlide = 0;
+    // Obtener el contenedor de las imágenes
+    const sliderWrapper = document.getElementById('sliderWrapper');
+    // Contar cuántas imágenes hay (cuántos 'slider-item')
+    const totalSlides = sliderWrapper.querySelectorAll('.slider-item').length;
+
+    /**
+     * Mueve el slider al siguiente/anterior elemento.
+     * @param {number} direction - 1 para siguiente, -1 para anterior.
+     */
+    function moveSlider(direction) {
+        // Calcular el nuevo índice
+        currentSlide += direction;
+
+        // Bucle infinito: si pasa el final, vuelve al principio; si pasa el principio, va al final.
+        if (currentSlide < 0) {
+            currentSlide = totalSlides - 1;
+        } else if (currentSlide >= totalSlides) {
+            currentSlide = 0;
+        }
+
+        // Calcular el desplazamiento (cada imagen es el 100% del contenedor)
+        // Ejemplo: Slide 0 = 0% de desplazamiento. Slide 1 = -20% de desplazamiento (porque cada item es 20% de un total de 500% del wrapper)
+        const displacementPercentage = currentSlide * (-100 / totalSlides);
+
+        // Aplicar la transformación CSS para mover el carrusel
+        sliderWrapper.style.transform = `translateX(${displacementPercentage}%)`;
+    }
+</script>
+</body>
+</html>
