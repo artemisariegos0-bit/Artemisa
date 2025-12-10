@@ -166,18 +166,6 @@
       margin-top: 0;
     }
 
-    /* --- ESTILOS DE CONTACTO (Alineación y logos) --- */
-    #contacto p img {
-      width: 24px; /* Tamaño más adecuado para iconos en línea */
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-    .contact-info a {
-        color: var(--color-verde-oscuro);
-        text-decoration: underline;
-    }
-    /* FIN de estilo de la sección contactos */
-
         /* --- SECCIÓN TRABAJOS (SLIDER) --- */
     #trabajos {
         background-color: #e8ede8;
@@ -233,7 +221,35 @@
 
     .slider-prev { left: 10px; }
     .slider-next { right: 10px; }
+    /* FIN ESTILO SECCIÓN TRABAJO */
 
+    /* --- ESTILOS DE CONTACTO (Alineación y logos) --- */
+    #contacto p img {
+      width: 24px; /* Tamaño más adecuado para iconos en línea */
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .icono{
+      width: 24px; /* Tamaño más adecuado para iconos en linea*/
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .contact-info a {
+        color: var(--color-verde-oscuro);
+        text-decoration: underline;
+    }
+    .Fabian {
+      font-family: 'Arial Black', sans-serif;
+          font-size: 18px;
+          color: #0a2a66;        /* azul oscuro */
+          font-weight: bold;
+    }
+    .Vanesa {
+      font-family: 'Brush Script MT', cursive;
+          font-size: 20px;
+          color: #d64ab8;       /* rosa violeta */
+        }
+    /* FIN de estilo de la sección contactos */
 
     /* --- ESTILOS DEL FOOTER --- */
     footer {
@@ -253,7 +269,8 @@
     .socials a:hover {
         color: white;
     }
-
+    /* FIN ESTILO DEL FOOTER */
+  
     /* --- RESPONSIVIDAD --- */
     @media (max-width: 768px) {
         .encabezado {
@@ -400,14 +417,42 @@
     <h2>Contacto</h2>
     <div class="contact-info" style="text-align:center;">
       
-      <!-- WHATSAPP -->
-      <p>
-        <img src="https://i.imgur.com/gU1U8z5.png" alt="whatsapp">
+      <!-- WHATSAPP -->    
+    <!-- CONTENEDOR DE LOS DOS CONTACTOS UNO AL LADO DEL OTRO -->
+    <div style="
+      display: flex;
+      justify-content: center;
+      gap: 40px;           /* espacio entre los dos contactos */
+      margin-top: 10px;
+      flex-wrap: wrap;     /* por si se ve en móvil, permite saltar de línea */
+    ">
+      <!-- FABIAN -->
+      <div style="text-align:center;">
+        <div class="Fabian">
+          Fabian
+        </div>
+           <!-- Ícono -->
+        <img class="icono" src="https://i.imgur.com/gU1U8z5.png" alt="whatsapp">
+           <!-- Número -->
+        <a href="https://wa.me/541159036442" target="_blank">
+          11 5903-6442
+        </a>
+      </div>
 
-        <a href="https://wa.me/541159036442" target="_blank">11 5903-6442</a>
-          /
-        <a href="https://wa.me/541160162283" target="_blank">11 6016-2283</a></p>
-      
+      <!-- VANESA -->
+      <div style="text-align:center;">
+        <div class="Vanesa">
+          Vanesa
+        </div>
+           <!-- Ícono -->
+        <img class="icono" src="https://i.imgur.com/gU1U8z5.png" alt="whatsapp">
+           <!-- Número -->
+        <a href="https://wa.me/541160162283" target="_blank">
+          11 6016-2283
+        </a>
+      </div>
+
+    </div>
       <!-- FACEBOOK -->
         <p>        
          <img src="https://i.imgur.com/tbfzbPN.png" alt="facebook">
